@@ -3,8 +3,6 @@ package com.ponscio.taller.domain.port;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Repository;
-
 import com.ponscio.taller.domain.model.Country;
 
 public interface CountryRepositoryPort {
