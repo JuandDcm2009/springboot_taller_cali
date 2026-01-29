@@ -3,11 +3,13 @@ package com.ponscio.taller.infrastructure.adapter.out.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import com.ponscio.taller.domain.model.Country;
 import com.ponscio.taller.domain.port.CountryRepositoryPort;
 import com.ponscio.taller.infrastructure.adapter.out.entity.CountryEntity;
 import com.ponscio.taller.infrastructure.adapter.out.repository.JPACountryRepository;
-
+@Repository
 public class CountryRepositoryImpl implements CountryRepositoryPort{
 
     private final JPACountryRepository repository;
@@ -23,13 +25,14 @@ public class CountryRepositoryImpl implements CountryRepositoryPort{
 
     @Override
     public Optional<Country> getById(String id) {
-        return repository.findById(id).stream().map(this::toDomain).findFirst();
+        return repository.findById(id).map(this::toDomain);
     }
 
     @Override
     public Country save(Country country) {
         CountryEntity entity = toEntity(country);
-        return toDomain(repository.save(entity));
+        CountryEntity saved = repository.save(entity);
+        return toDomain(saved);
     }
 
     @Override

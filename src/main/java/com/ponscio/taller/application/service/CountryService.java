@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.ponscio.taller.application.exceptions.EntityNotFoundException;
 import com.ponscio.taller.domain.model.Country;
 import com.ponscio.taller.domain.port.CountryRepositoryPort;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class CountryService {
@@ -17,29 +20,26 @@ public class CountryService {
         this.repository = repository;
     }
 
+
     public List<Country> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return (List<Country>) repository.findAll().stream().toList();
     }
 
-    public Optional<Country> getById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    public Country getById(String id) {
+        return repository.getById(id).orElseThrow(() -> new EntityNotFoundException("The Object could not be found"));
     }
 
+    @Transactional
     public Country save(Country country) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return repository.save(country);
     }
 
     public Optional<Country> update(String id, Country country) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        return repository.update(id, country);
     }
 
     public Optional<Country> deleteById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        return repository.deleteById(id);
     }
     
 }
